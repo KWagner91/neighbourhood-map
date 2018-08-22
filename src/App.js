@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import GoogleMap from './components/GoogleMaps.js';
 import './App.css';
 //import './responsive.css';
 
@@ -23,7 +23,9 @@ class App extends Component {
 			  </select>
 			</aside>
 			<main class="main">
-			  <div id="map"></div>
+			  <div id="map">
+			  <GoogleMap />
+			  </div>
 			</main>
 		  </div>
 	
