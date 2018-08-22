@@ -5,8 +5,26 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
  
 export class GoogleMap extends Component {
   render() {
+	  
+	  const style = {
+		  width: '70%',
+		  height: '70%'
+	}
+	  
     return (
-      <Map google={this.props.google} zoom={14}>
+      <Map 
+      google={this.props.google} 
+      style={style}
+      className={'map'}
+      initialCenter={{
+		lat: 48.1351,
+        lng: 11.5820
+          }}
+          zoom={14}
+          onClick={this.onMapClicked}
+	>
+      
+     
  
         <Marker onClick={this.onMarkerClick}
                 name={'Current location'} />
