@@ -22,7 +22,6 @@ class App extends Component {
 				 containerElement = {<div style = {{ height: `80vh` }} />}
 				 mapElement = {<div style = {{ height: `100%` }} />}
 				/>
-				<SideMenu />
 			  </div>
 			</main>
 		  </div>
