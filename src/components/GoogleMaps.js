@@ -1,89 +1,78 @@
-// https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/#the-map-container-component
-// https://www.npmjs.com/package/google-maps-react
+/* SOURCES
+ * https://tomchentw.github.io/react-google-maps/
+ * https://github.com/tomchentw/react-google-maps/issues/753
+ */
 
 import React, { Component } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import PropTypes from "prop-types";
- 
-export class GoogleMap extends Component {
-	
-	static propTypes = {
-	  onMapClicked: PropTypes.func.isRequired,
-	  onMarkerClick: PropTypes.func.isRequired
-}
-	
-	state = {
-		showingInfoWindow: false,
-		activeMarker: {},
-		selectedPlace: {}
-  };
-	
-	 onMarkerClick = (props, marker, e) => {
-		this.setState({
-		  selectedPlace: props,
-		  activeMarker: marker,
-		  showingInfoWindow: true
-    });
-}
- 
-	onMapClicked = (props) => {
-		if (this.state.showingInfoWindow) {
-		  this.setState({
-			showingInfoWindow: false,
-			activeMarker: null
-      })
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
+
+  class GoogleMaps extends Component {
+    state = {
+      map: undefined,
+      isOpen: false,
+      startingZoom: 14,
+      startingCenter: { lat: 48.1351, lng: 11.5820 }
     }
-  };
-  
-  fetchPlaces(mapProps, map) {
-  const {google} = mapProps;
-  const service = new google.maps.places.PlacesService(map);
-}
-	
-  render() {
-	  
-	  const style = {
-		  width: '70%',
-		  height: '70%'
-	}
-	  
-    return (
-      <Map 
-		google={this.props.google}
-		onReady= {this.props.fetchPlaces}
-		style={style}
-      
-     
-      initialCenter={{
-		lat: 48.1351,
-        lng: 11.5820
-          }}
-          zoom={14}
-         onClick={this.onMapClicked}
-	>
 
 
-      
-      <Marker onClick={this.onMarkerClick}
-                name={'Current location'}
-                position={this.props.google.maps.LatLng()} />
-                
- 
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-              <p>{this.state.selectedPlace.position}</p>
-            </div>
-        </InfoWindow>
- 
-      </Map>
-      
-    );
+    mapMoved() {
+      console.log('mapMoved: ' + JSON.stringify(this.state.map.getCenter()))
   }
+
+    mapLoaded(ref) {
+      this.state.map = ref;
+  }
+
+  zoomChanged() {
+    console.log(this.state.map.getZoom())
 }
- 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyCtYSODQt7swOobRBnXKEXA90ke2SLFHE4'
-})(GoogleMap)
+
+handleToggleOpen = () => {
+	this.setState({
+		isOpen: true
+	});
+}
+
+handleToggleClose = () => {
+	this.setState({
+		isOpen: false
+	});
+}
+
+
+    
+    render() {
+  
+      const markers = this.props.markers || [];
+      
+      return (
+        <GoogleMap
+        onIdle = {this.mapMoved.bind(this)}
+        defaultZoom = {this.state.startingZoom}
+        defaultCenter = {this.state.startingCenter}
+        ref = {this.mapLoaded.bind(this)}
+        onZoomChanged= {this.zoomChanged.bind(this)}
+        >
+
+        <Marker
+          position={this.state.startingCenter}
+          onClick={() => this.handleToggleOpen()}
+        >
+
+        {
+			this.state.isOpen &&
+       <InfoWindow
+						onCloseClick={this.handleToggleClose}
+				>
+					<span>Something</span>
+				</InfoWindow>
+        }
+        </Marker>   
+      </GoogleMap>
+
+     
+            );
+        }}
+
+  
+export default withGoogleMap(GoogleMaps);
