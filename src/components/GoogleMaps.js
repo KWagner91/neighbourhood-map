@@ -43,6 +43,8 @@ handleToggleClose = () => {
 
     
     render() {
+		const places = this.props.items;
+		
 		const MyMapComponent = withScriptjs(withGoogleMap((props) =>
       <GoogleMap
       onIdle = {this.mapMoved.bind(this)}
@@ -50,7 +52,27 @@ handleToggleClose = () => {
       defaultCenter = {this.state.startingCenter}
       ref = {this.mapLoaded.bind(this)}
       onZoomChanged= {this.zoomChanged.bind(this)}
-      / >  
+      >  
+      {places &&
+        places.map((place, i) => (
+          <Marker
+            key={i}
+            position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }}
+            id={place.venue.id}
+            name={place.venue.name}
+            onClick={this.handleToggle}
+          >
+           {this.state.isOpen &&
+				<InfoWindow
+						onCloseClick={this.handleToggle}
+						>
+					<span>Something</span>
+				</InfoWindow>
+			 }
+          </Marker>
+        ))}
+
+    </GoogleMap>
         ))
 
    
