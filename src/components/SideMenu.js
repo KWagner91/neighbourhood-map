@@ -14,7 +14,7 @@ class SideMenu extends Component {
 	render() {
 		return (
 		 <div id="right-panel">
-			  <h3>Search Results</h3>
+			  <h3>Search For Coffee</h3>
 			  <ul id="places"></ul>
 			  <button id="more">More results</button>
 			  <List />

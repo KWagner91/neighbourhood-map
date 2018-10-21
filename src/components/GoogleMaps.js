@@ -1,10 +1,11 @@
 /* SOURCES
  * https://tomchentw.github.io/react-google-maps/
  * https://github.com/tomchentw/react-google-maps/issues/753
+ * https://stackoverflow.com/questions/52030352/react-error-handling-fetch-data-venues-list
  */
 
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 
   class GoogleMaps extends Component {
     state = {
@@ -42,37 +43,28 @@ handleToggleClose = () => {
 
     
     render() {
-  
-      const markers = this.props.markers || [];
-      
+		const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+      <GoogleMap
+      onIdle = {this.mapMoved.bind(this)}
+      defaultZoom = {this.state.startingZoom}
+      defaultCenter = {this.state.startingCenter}
+      ref = {this.mapLoaded.bind(this)}
+      onZoomChanged= {this.zoomChanged.bind(this)}
+      / >  
+        ))
+
+   
       return (
-        <GoogleMap
-        onIdle = {this.mapMoved.bind(this)}
-        defaultZoom = {this.state.startingZoom}
-        defaultCenter = {this.state.startingCenter}
-        ref = {this.mapLoaded.bind(this)}
-        onZoomChanged= {this.zoomChanged.bind(this)}
-        >
-
-        <Marker
-          position={this.state.startingCenter}
-          onClick={() => this.handleToggleOpen()}
-        >
-
-        {
-			this.state.isOpen &&
-       <InfoWindow
-						onCloseClick={this.handleToggleClose}
-				>
-					<span>Something</span>
-				</InfoWindow>
-        }
-        </Marker>   
-      </GoogleMap>
+        <MyMapComponent
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtYSODQt7swOobRBnXKEXA90ke2SLFHE4&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
 
      
             );
         }}
 
   
-export default withGoogleMap(GoogleMaps);
+export default GoogleMaps;
