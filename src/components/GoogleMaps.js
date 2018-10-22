@@ -28,15 +28,17 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
     console.log(this.state.map.getZoom())
 }
 
-handleToggleOpen = () => {
+// Toggle Info Box
+handleToggle = () => {
 	this.setState({
-		isOpen: true
+		isOpen: !this.state.isOpen
 	});
 }
 
-handleToggleClose = () => {
+// Show Info Window when place is clicked
+showInfo(a) {
 	this.setState({
-		isOpen: false
+		showInfoIndex: a
 	});
 }
 
@@ -60,13 +62,16 @@ handleToggleClose = () => {
             position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }}
             id={place.venue.id}
             name={place.venue.name}
-            onClick={this.handleToggle}
+            onClick={() => {this.showInfo(i)} }
           >
-           {this.state.isOpen &&
+           { (this.state.showInfoIndex === i) &&
 				<InfoWindow
-						onCloseClick={this.handleToggle}
+						onClick={this.handleToggle}
 						>
-					<span>Something</span>
+						<div>
+					<h2>{place.venue.name}</h2>
+					<p>{place.venue.location.address}</p>
+					</div>
 				</InfoWindow>
 			 }
           </Marker>

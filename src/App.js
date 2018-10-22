@@ -37,15 +37,15 @@ class App extends Component {
 	
   render() {
     return (
-		  <div class="flexbox">
-			<header class="header">
+		  <div className="flexbox">
+			<header className="header">
 			  <h1>Neighbourhood Map of Munich</h1>
 			  <p>You happen to be in Munich, Germany? You would like to visit soon?</p>
 			</header>
-			<aside class="menu">
+			<aside className="menu">
 				<SideMenu />
 			</aside>
-			<main class="main">
+			<main className="main">
 			  <div id="map">
 			  <GoogleMaps 
           items={this.state.filteredItems}
