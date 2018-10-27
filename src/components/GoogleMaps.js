@@ -12,7 +12,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
       map: undefined,
       isOpen: false,
       startingZoom: 14,
-      startingCenter: { lat: 48.1351, lng: 11.5820 }
+      startingCenter: { lat: 48.1351, lng: 11.5820 },
     }
 
 
@@ -38,10 +38,15 @@ handleToggle = () => {
 // Show Info Window when place is clicked
 showInfo(a) {
 	this.setState({
-		showInfoIndex: a
+		showInfoIndex: a,
 	});
 }
 
+
+animateMarker(a) {
+	if (this.state.showInfoIndex === a)
+	return 1
+}
 
     
     render() {
@@ -63,10 +68,15 @@ showInfo(a) {
             id={place.venue.id}
             name={place.venue.name}
             onClick={() => {this.showInfo(i)} }
+			animation = {this.animateMarker(i)}
+			
           >
+          
+          
            { (this.state.showInfoIndex === i) &&
 				<InfoWindow
 						onClick={this.handleToggle}
+						 animation={1}
 						>
 						<div>
 					<h2>{place.venue.name}</h2>
@@ -87,6 +97,7 @@ showInfo(a) {
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
+          
         />
 
      

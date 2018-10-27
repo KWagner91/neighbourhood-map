@@ -2,9 +2,8 @@
 // https://dev.to/sage911/how-to-write-a-search-component-with-suggestions-in-react-d20
 
 import React, {Component} from 'react'
-import ReactDom from 'react-dom'
 import PropTypes from 'prop-types';
-
+import '.././App.css';
 
 class SideMenu extends Component {
 	// Prop types
@@ -18,11 +17,11 @@ class SideMenu extends Component {
 	}
 
 
-	 handleInputChange = () => {
-	   this.setState({
-		 query: this.search.value
-	   })
-	 }
+
+	 
+	 updateSearch = (event) => {
+    this.setState({query: event.target.value.substr(0, 20)});
+  }
 
 	render() {
 		const places = this.props.items;
@@ -33,16 +32,32 @@ class SideMenu extends Component {
 			   <form>
 				   <input
 					 placeholder="Search for..."
-					 ref={input => this.search = input}
-					 onChange={this.handleInputChange}
+					 autoFocus
+					 aria-label="Locations filter"
+					 value={this.state.search}
+					onChange={this.updateSearch.bind(this)}
+					
+			
 				   />
-				   <p>{this.state.query}</p>
-			 </form>
-				  
 				   
-			</div>
+				     {places &&
+        places.map((place, i) => (
+        <ul className="cafe-overview">
+			  <li key={place.id}>
+				  <h3>{place.venue.name} </h3>
+				  <p>{place.venue.location.address} </p>
+				</li>
+				</ul>   
+				   ))}
+			
+		
+		
+				   
+			 </form>
+		</div>
 		)
-		}
+				
+}
 }
 
 

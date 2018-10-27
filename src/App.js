@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import GoogleMaps from './components/GoogleMaps.js';
-import SideMenu from './components/SideMenu.js';
+import GoogleMaps from './components/GoogleMaps';
+import SideMenu from './components/SideMenu';
 import './App.css';
 //import './responsive.css';
 
@@ -43,7 +43,9 @@ class App extends Component {
 			  <p>You happen to be in Munich, Germany? You would like to visit soon?</p>
 			</header>
 			<aside className="menu">
-				<SideMenu />
+				<SideMenu 
+				items={this.state.filteredItems}
+				/>
 			</aside>
 			<main className="main">
 			  <div id="map">
