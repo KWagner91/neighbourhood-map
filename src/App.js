@@ -8,14 +8,15 @@ import './App.css';
 class App extends Component {
 	
 	state = {
-  isLoaded: false,
-  items: [],
-  clickedCafe: {},
-  filteredItems: []
+	  isLoaded: false,
+	  items: [],
+	  clickedCafe: {},
+	  filteredItems: [],
+	  query: "museum"
 }
 	
 	 componentDidMount() {
-    fetch("https://api.foursquare.com/v2/venues/explore?client_id=P0LWPSZEPCIPHK2CXLBTKTBGJJI03SHNTX3SHS3B50ZBUQZB&client_secret=GOUEWYEXFBRH1LWAM5TI5520GZ4UKNYA53L1GBOTT2UHRSFW&v=20180323&near=Munich&query=food")
+    fetch("https://api.foursquare.com/v2/venues/explore?client_id=P0LWPSZEPCIPHK2CXLBTKTBGJJI03SHNTX3SHS3B50ZBUQZB&client_secret=GOUEWYEXFBRH1LWAM5TI5520GZ4UKNYA53L1GBOTT2UHRSFW&v=20180323&near=Munich&query="+ this.state.query)
       .then(res => res.json())
       .then(
         (result) => {
@@ -45,6 +46,7 @@ class App extends Component {
 			<aside className="menu">
 				<SideMenu 
 				items={this.state.filteredItems}
+
 				/>
 			</aside>
 			<main className="main">

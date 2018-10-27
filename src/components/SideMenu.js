@@ -13,15 +13,15 @@ class SideMenu extends Component {
 
 
 	state = {
-		query: '',
+		query: this.props.query
 	}
 
 
-
-	 
-	 updateSearch = (event) => {
-    this.setState({query: event.target.value.substr(0, 20)});
-  }
+	handleInputChange = () => {
+	   this.setState({
+		 query: this.search.value
+	   })
+	 }
 
 	render() {
 		const places = this.props.items;
@@ -34,25 +34,21 @@ class SideMenu extends Component {
 					 placeholder="Search for..."
 					 autoFocus
 					 aria-label="Locations filter"
-					 value={this.state.search}
-					onChange={this.updateSearch.bind(this)}
-					
-			
+					 ref={input => this.search = input}
+					onChange={this.handleInputChange}
 				   />
+				   <p>{this.state.query}</p>
 				   
 				     {places &&
         places.map((place, i) => (
-        <ul className="cafe-overview">
+        <ul className="places-overview">
 			  <li key={place.id}>
 				  <h3>{place.venue.name} </h3>
 				  <p>{place.venue.location.address} </p>
 				</li>
 				</ul>   
 				   ))}
-			
-		
-		
-				   
+					   
 			 </form>
 		</div>
 		)
