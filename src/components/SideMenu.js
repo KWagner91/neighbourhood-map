@@ -7,21 +7,13 @@ import '.././App.css';
 
 class SideMenu extends Component {
 	// Prop types
-	static propTypes = {
+static propTypes = {
       
 };
 
-
-	state = {
-		query: this.props.query
-	}
-
-
-	handleInputChange = () => {
-	   this.setState({
-		 query: this.search.value
-	   })
-	 }
+  state = {
+    query: ''
+  };
 
 	render() {
 		const places = this.props.items;
@@ -31,13 +23,15 @@ class SideMenu extends Component {
 			  <h3>Search For Coffee</h3>
 			   <form>
 				   <input
-					 placeholder="Search for..."
+					 placeholder="e.g. coffee, food, museum"
 					 autoFocus
-					 aria-label="Locations filter"
-					 ref={input => this.search = input}
-					onChange={this.handleInputChange}
+           aria-label="Locations filter"
+           value={ this.state.query }
+           onChange={(event) => {
+            this.setState({ query: event.target.value });
+            this.props.handleInputChange(event.target.value)}
+          }
 				   />
-				   <p>{this.state.query}</p>
 				   
 				     {places &&
         places.map((place, i) => (
@@ -55,7 +49,6 @@ class SideMenu extends Component {
 				
 }
 }
-
 
 
 export default SideMenu

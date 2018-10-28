@@ -12,10 +12,18 @@ class App extends Component {
 	  items: [],
 	  clickedCafe: {},
 	  filteredItems: [],
-	  query: "museum"
+	  query: "coffee"
 }
-	
-	 componentDidMount() {
+
+
+	handleInputChange(query) {
+	   this.setState({query})
+	   this.getData()
+	 }
+
+
+
+   getData = () => {
     fetch("https://api.foursquare.com/v2/venues/explore?client_id=P0LWPSZEPCIPHK2CXLBTKTBGJJI03SHNTX3SHS3B50ZBUQZB&client_secret=GOUEWYEXFBRH1LWAM5TI5520GZ4UKNYA53L1GBOTT2UHRSFW&v=20180323&near=Munich&query="+ this.state.query)
       .then(res => res.json())
       .then(
@@ -33,9 +41,15 @@ class App extends Component {
               error
           );
         });
-      
+
+
+        
   }
-	
+  
+  componentDidMount() {
+    this.getData()
+  }
+
   render() {
     return (
 		  <div className="flexbox">
@@ -45,17 +59,18 @@ class App extends Component {
 			</header>
 			<aside className="menu">
 				<SideMenu 
-				items={this.state.filteredItems}
-
+					items={this.state.filteredItems}
+					query={this.state.query}
+					handleInputChange={(query) => {this.handleInputChange(query)}}
 				/>
 			</aside>
 			<main className="main">
 			  <div id="map">
 			  <GoogleMaps 
-          items={this.state.filteredItems}
-          clickedPlace={this.state.clickedPlace}
-          handleInfoWindow={this.handleInfoWindow}
-        />
+				  items={this.state.filteredItems}
+				  clickedPlace={this.state.clickedPlace}
+				  handleInfoWindow={this.handleInfoWindow}
+				/>
 			  </div>
 			</main>
 		  </div>
