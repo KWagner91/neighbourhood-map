@@ -7,17 +7,19 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 
-  class GoogleMaps extends Component {
+ class GoogleMaps extends Component {
     state = {
       map: undefined,
       isOpen: false,
       startingZoom: 14,
-      startingCenter: { lat: 48.1351, lng: 11.5820 },
+      center: { lat: 48.1351, lng: 11.5820 }
     }
 
 
     mapMoved() {
-      console.log('mapMoved: ' + JSON.stringify(this.state.map.getCenter()))
+      this.setState({
+        center: this.state.map.getCenter()
+      })
   }
 
     mapLoaded(ref) {
@@ -25,7 +27,9 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
   }
 
   zoomChanged() {
-    console.log(this.state.map.getZoom())
+    this.setState({
+      startingZoom: this.state.map.getZoom()
+    })
 }
 
 // Toggle Info Box
@@ -42,7 +46,7 @@ showInfo(a) {
 	});
 }
 
-
+// Animate Marker which was clicked
 animateMarker(a) {
 	if (this.state.showInfoIndex === a)
 	return 1
@@ -54,9 +58,9 @@ animateMarker(a) {
 		
 		const MyMapComponent = withScriptjs(withGoogleMap((props) =>
       <GoogleMap
-      onIdle = {this.mapMoved.bind(this)}
+      onPlacesChanged = {this.mapMoved.bind(this)}
       defaultZoom = {this.state.startingZoom}
-      defaultCenter = {this.state.startingCenter}
+      defaultCenter = {this.state.center}
       ref = {this.mapLoaded.bind(this)}
       onZoomChanged= {this.zoomChanged.bind(this)}
       >  
@@ -68,8 +72,7 @@ animateMarker(a) {
             id={place.venue.id}
             name={place.venue.name}
             onClick={() => {this.showInfo(i)} }
-			animation = {this.animateMarker(i)}
-			
+			      animation = {this.animateMarker(i)}
           >
           
           
@@ -103,6 +106,5 @@ animateMarker(a) {
      
             );
         }}
-
   
 export default GoogleMaps;
