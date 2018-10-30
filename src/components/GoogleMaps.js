@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
+import '.././index.css';
 
  class GoogleMaps extends Component {
     state = {

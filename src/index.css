@@ -2,14 +2,15 @@
 
 /* Color Inspirations from https://www.canva.com/learn/website-color-schemes/ */
 :root {
---main-bg-color: #eae3ea;
+--main-bg-color: #fff;
 --main-txt-color: #3c3c3c;
 --main-header-color: #af473c;
 --color-accents: #626e60;
 }
 
 
-html {
+html, 
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -26,13 +27,13 @@ html {
 .flexbox {
   display: flex;
   flex-flow: row wrap;
+  height: 100%;
   justify-content: center;
-  background-color: #fff;
 }
 
 .header {
   width: 100%;
-  padding: 1%;
+  padding: 0 1%;
 }
 
 .header h1 {
@@ -41,24 +42,31 @@ html {
 }
 
 .main {
-  flex: 1 70%;
-  min-height: 80vh;
   padding: 1%;
 }
 
 .menu {
-  flex: 1 25%;
   padding: 1%;
+  height: 60vh;
+  overflow-y: scroll;
+  position: relative
 }
 
-.menu h2 {
+h4 {
   color: var(--color-accents);
 }
+
+.menu input {
+   width: 80%;
+   }
 
 
 /* =========== MAP =========== */
 #map {
-  background-color: grey;
+  background-color: var(--main-bg-color);
+  min-width: 70vw;
+  height: auto;
+  padding: 3% 0 0 0;
    }
 
 #infowindow-content {
@@ -66,4 +74,24 @@ html {
 }
 #map #infowindow-content {
   display: inline;
+}
+
+
+/* =========== RESPONSIVE =========== */
+@media only screen and (max-width: 900px) {
+  .menu
+  .main {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+@media only screen and (min-width: 901px) {
+  .main {
+    flex: 1 70%;
+  }
+
+  .menu {
+    flex: 1 25%;
+  }
 }

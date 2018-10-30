@@ -19,8 +19,8 @@ static propTypes = {
 		const places = this.props.items;
 		
 		return (
-		 <div id="right-panel">
-			  <h3>Search For Coffee</h3>
+		 <div id="search">
+			  <h2>Search Here For Coffee and Events</h2>
 			   <form>
 				   <input
 					 placeholder="e.g. coffee, food, museum"
@@ -30,20 +30,20 @@ static propTypes = {
            onChange={(event) => {
             this.setState({ query: event.target.value });
             this.props.handleInputChange(event.target.value)}
+          
           }
-				   />
-				   
-				     {places &&
+				   />   
+			 </form>
+			 
+		{places &&
         places.map((place, i) => (
         <ul className="places-overview">
 			  <li key={place.id}>
-				  <h3>{place.venue.name} </h3>
+				  <h4>{place.venue.name} </h4>
 				  <p>{place.venue.location.address} </p>
 				</li>
 				</ul>   
 				   ))}
-					   
-			 </form>
 		</div>
 		)
 				

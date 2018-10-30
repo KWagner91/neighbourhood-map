@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMaps from './components/GoogleMaps';
 import SideMenu from './components/SideMenu';
 import './App.css';
-//import './responsive.css';
+
 
 
 class App extends Component {
@@ -56,14 +56,8 @@ class App extends Component {
 			<header className="header">
 			  <h1>Neighbourhood Map of Munich</h1>
 			  <p>You happen to be in Munich, Germany? You would like to visit soon?</p>
+			  <p>Enter what you would like to do in the search field to get recommendations!</p>
 			</header>
-			<aside className="menu">
-				<SideMenu 
-					items={this.state.filteredItems}
-					query={this.state.query}
-					handleInputChange={(query) => {this.handleInputChange(query)}}
-				/>
-			</aside>
 			<main className="main">
 			  <div id="map">
 			  <GoogleMaps 
@@ -73,6 +67,13 @@ class App extends Component {
 				/>
 			  </div>
 			</main>
+					<aside className="menu">
+				<SideMenu 
+					items={this.state.filteredItems}
+					query={this.state.query}
+					handleInputChange={(query) => {this.handleInputChange(query)}}
+				/>
+			</aside>
 		  </div>
 	
     );
