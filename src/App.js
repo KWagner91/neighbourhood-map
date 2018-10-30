@@ -59,9 +59,10 @@ class App extends Component {
 			  <p>Enter what you would like to do in the search field to get recommendations!</p>
 			</header>
 			<main className="main">
-			  <div id="map">
+			  <div id="map" role="application">
 			  <GoogleMaps 
 				  items={this.state.filteredItems}
+				  key={this.state.filteredItems.id}
 				  clickedPlace={this.state.clickedPlace}
 				  handleInfoWindow={this.handleInfoWindow}
 				/>

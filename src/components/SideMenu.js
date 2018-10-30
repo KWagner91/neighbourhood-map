@@ -8,7 +8,7 @@ import '.././App.css';
 class SideMenu extends Component {
 	// Prop types
 static propTypes = {
-      
+      query: PropTypes.string.isRequired
 };
 
   state = {
@@ -23,22 +23,22 @@ static propTypes = {
 			  <h2>Search Here For Coffee and Events</h2>
 			   <form>
 				   <input
+					 type="text"
 					 placeholder="e.g. coffee, food, museum"
 					 autoFocus
-           aria-label="Locations filter"
-           value={ this.state.query }
-           onChange={(event) => {
-            this.setState({ query: event.target.value });
-            this.props.handleInputChange(event.target.value)}
-          
+					 aria-label="Locations filter"
+					 value={ this.state.query }
+					 onChange={(event) => {
+					 this.setState({ query: event.target.value });
+					 this.props.handleInputChange(event.target.value)}
           }
 				   />   
 			 </form>
 			 
 		{places &&
         places.map((place, i) => (
-        <ul className="places-overview">
-			  <li key={place.id}>
+        <ul className="places-overview" key={i}>
+			  <li id={place.venue.id}>
 				  <h4>{place.venue.name} </h4>
 				  <p>{place.venue.location.address} </p>
 				</li>

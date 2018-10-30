@@ -9,6 +9,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
 import '.././index.css';
 
  class GoogleMaps extends Component {
+	 
     state = {
       map: undefined,
       isOpen: false,
@@ -23,9 +24,6 @@ import '.././index.css';
       })
   }
 
-    mapLoaded(ref) {
-      this.state.map = ref;
-  }
 
   zoomChanged() {
     this.setState({
@@ -43,7 +41,7 @@ handleToggle = () => {
 // Show Info Window when place is clicked
 showInfo(a) {
 	this.setState({
-		showInfoIndex: a,
+		showInfoIndex: a
 	});
 }
 
@@ -62,7 +60,6 @@ animateMarker(a) {
       onPlacesChanged = {this.mapMoved.bind(this)}
       defaultZoom = {this.state.startingZoom}
       defaultCenter = {this.state.center}
-      ref = {this.mapLoaded.bind(this)}
       onZoomChanged= {this.zoomChanged.bind(this)}
       >  
       {places &&
@@ -100,8 +97,7 @@ animateMarker(a) {
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtYSODQt7swOobRBnXKEXA90ke2SLFHE4&v=3.exp&libraries=geometry,drawing,places"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-          
+          mapElement={<div style={{ height: `100%` }} />}       
         />
 
      
