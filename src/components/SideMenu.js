@@ -3,35 +3,48 @@
 
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
+
 import '.././App.css';
 
 class SideMenu extends Component {
 	// Prop types
 static propTypes = {
-      query: PropTypes.string.isRequired
+      
 };
 
   state = {
-    query: ''
+    filter: '',
+    filteredResults: []
   };
+  
+
+filterResults = (itemFilter) => {
+    let filteredResults = this.state.filteredResults
+    filteredResults = filteredResults.filter((item) => {
+      return item.indexOf(
+        itemFilter.toLowerCase()) !== -1
+    })
+    this.setState({
+      filteredResults
+    })
+}
 
 	render() {
 		const places = this.props.items;
 		
 		return (
 		 <div id="search">
-			  <h2>Search Here For Coffee and Events</h2>
-			   <form>
+			 
+			 <form>
 				   <input
 					 type="text"
-					 placeholder="e.g. coffee, food, museum"
+					 placeholder="filter results"
 					 autoFocus
 					 aria-label="Locations filter"
-					 value={ this.state.query }
+					 value={ this.state.filter }
 					 onChange={(event) => {
-					 this.setState({ query: event.target.value });
-					 this.props.handleInputChange(event.target.value)}
-          }
+					 this.setState({ filter: event.target.value });
+				 }}
 				   />   
 			 </form>
 			 
