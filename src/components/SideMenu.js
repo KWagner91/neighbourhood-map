@@ -18,16 +18,27 @@ static propTypes = {
   };
   
 
-filterResults = (itemFilter) => {
-    let filteredResults = this.state.filteredResults
-    filteredResults = filteredResults.filter((item) => {
-      return item.indexOf(
-        itemFilter.toLowerCase()) !== -1
-    })
-    this.setState({
-      filteredResults
-    })
-}
+ filterTodo(e)
+ { 
+ var updatedList = this.state.todosInit;
+ updatedList = updatedList.filter((item =>{
+ return item.toLowerCase().search(
+ e.target.value.toLowerCase()) !== -1;
+ }) );
+ this.setState({ 
+ todos: updatedList,
+ });
+ if (updatedList == 0 ) {
+ this.setState({ 
+ message: true,
+ });
+ } else {
+ this.setState({ 
+ message: false,
+ });
+ }
+ }
+
 
 	render() {
 		const places = this.props.items;
@@ -47,9 +58,12 @@ filterResults = (itemFilter) => {
 				 }}
 				   />   
 			 </form>
+			
+			 <p>{this.state.filter}</p>
+			 <p>{this.state.filteredResults}</p>
 			 
 		{places &&
-        places.map((place, i) => (
+		places.map((place, i) => (
         <ul className="places-overview" key={i}>
 			  <li id={place.venue.id}>
 				  <h3>{place.venue.name} </h3>

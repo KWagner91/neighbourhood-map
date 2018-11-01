@@ -63,7 +63,7 @@ animateMarker(a) {
             id={place.venue.id}
             name={place.venue.name}
             onClick={() => {this.showInfo(i)} }
-			      animation = {this.animateMarker(i)}
+			animation = {this.animateMarker(i)}
           >
           
           
