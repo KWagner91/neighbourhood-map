@@ -56,7 +56,7 @@ class App extends Component {
 			<header className="header">
 			  <h1>Neighbourhood Map of Munich</h1>
 			  <p>You happen to be in Munich, Germany? You would like to visit soon?</p>
-			  <p>Enter what you would like to do in the search field to get recommendations!</p>
+			  <p>Enter what you would like to do in the search field to get personal recommendations!</p>
 			</header>
 			<main className="main">
 			  <div id="map" role="application">

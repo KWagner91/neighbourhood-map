@@ -79,7 +79,7 @@ animateMarker(a) {
 						onClick={this.handleToggle}
 						 animation={1}
 						>
-						<div>
+						<div role="presentation" aria-hidden="false">
 					<h2>{place.venue.name}</h2>
 					<p>{place.venue.location.address}</p>
 					</div>

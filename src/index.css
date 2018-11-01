@@ -38,7 +38,6 @@ body {
 
 .header h1 {
   color: var(--main-header-color);
-  font-weight: 600;
 }
 
 .main {
@@ -47,13 +46,14 @@ body {
 
 .menu {
   padding: 1%;
-  height: 60vh;
+  height: 70vh;
   overflow-y: scroll;
   position: relative
 }
 
-h4 {
+h3 {
   color: var(--color-accents);
+  font-size: 1.1rem;
 }
 
 .menu input {

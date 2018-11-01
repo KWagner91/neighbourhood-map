@@ -39,7 +39,7 @@ static propTypes = {
         places.map((place, i) => (
         <ul className="places-overview" key={i}>
 			  <li id={place.venue.id}>
-				  <h4>{place.venue.name} </h4>
+				  <h3>{place.venue.name} </h3>
 				  <p>{place.venue.location.address} </p>
 				</li>
 				</ul>   
