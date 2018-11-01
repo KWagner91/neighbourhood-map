@@ -25,12 +25,6 @@ import '.././index.css';
   }
 
 
-  zoomChanged() {
-    this.setState({
-      startingZoom: this.state.map.getZoom()
-    })
-}
-
 // Toggle Info Box
 handleToggle = () => {
 	this.setState({
@@ -60,7 +54,6 @@ animateMarker(a) {
       onPlacesChanged = {this.mapMoved.bind(this)}
       defaultZoom = {this.state.startingZoom}
       defaultCenter = {this.state.center}
-      onZoomChanged= {this.zoomChanged.bind(this)}
       >  
       {places &&
         places.map((place, i) => (
