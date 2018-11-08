@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import GoogleMaps from './components/GoogleMaps';
 import SideMenu from './components/SideMenu';
 import Search from './components/Search';
+import escapeRegExp from 'escape-string-regexp'
 import './App.css';
 
 
@@ -13,14 +14,22 @@ class App extends Component {
 	  items: [],
 	  clickedCafe: {},
 	  filteredItems: [],
-	  query: "coffee"
+		query: "coffee",
+		searchWord: ""
 }
 
 
+// Change Keyword when loading data
 	handleInputChange(query) {
 	   this.setState({query})
 	   this.getData()
 	 }
+
+
+// Filter results for user Keywords
+	 userKeyword(searchWord) {
+		this.setState({searchWord})
+	}
 
 
 
@@ -41,34 +50,47 @@ class App extends Component {
             "An error occurred while trying to fetch data from Foursquare: " +
               error
           );
-        });
-
-
-        
+        });        
   }
-  
+	
+	
   componentDidMount() {
     this.getData()
   }
 
+
+
+
   render() {
+
+		// SOURCE: https://github.com/markyz89/FEND-P8/blob/master/src/App.js
+		let filteredRestaurants
+    if(this.state.searchWord) {
+      const match = new RegExp(escapeRegExp(this.state.searchWord), 'i')
+      filteredRestaurants = this.state.filteredItems.filter((restaurant) => match.test(restaurant.venue.name))
+		} 
+		else {
+      filteredRestaurants = this.state.filteredItems
+}
+
     return (
 		  <div className="flexbox">
 			<header className="header">
 			  <h1>Neighbourhood Map of Munich</h1>
 			  <p>You happen to be in Munich, Germany? You would like to visit soon?</p>
-			  <p>Enter what you would like to do in the search field to get personal recommendations!</p>
+			  <p>Enter what you would like to do in the search field to get personal recommendations:
 			  		<Search 
 					items={this.state.filteredItems}
 					query={this.state.query}
 					handleInputChange={(query) => {this.handleInputChange(query)}}
 					/>
+					</p>
 			</header>
 			<main className="main">
 			  <div id="map" role="application">
 			  <GoogleMaps 
-				  items={this.state.filteredItems}
-				  key={this.state.filteredItems.id}
+				  items={filteredRestaurants}
+				  key={filteredRestaurants.id}
 				  clickedPlace={this.state.clickedPlace}
 				  handleInfoWindow={this.handleInfoWindow}
 				/>
@@ -76,12 +98,10 @@ class App extends Component {
 			</main>
 				<aside className="menu">
 					<SideMenu 
-						items={this.state.filteredItems}
-						query={this.state.query}
-						handleInputChange={(query) => {this.handleInputChange(query)}}
+						items={filteredRestaurants}
+						searchWord={this.state.searchWord}
+						userKeyword={(searchWord) => {this.userKeyword(searchWord)}}
 					/>
-		
-			
 			</aside>
 		  </div>
 	
@@ -90,5 +110,3 @@ class App extends Component {
 }
 
 export default App;
-
-

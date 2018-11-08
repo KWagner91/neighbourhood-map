@@ -39,5 +39,3 @@ static propTypes = {
 
 
 export default Search
-
-

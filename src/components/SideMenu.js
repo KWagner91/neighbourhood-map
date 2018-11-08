@@ -3,7 +3,6 @@
 
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
-
 import '.././App.css';
 
 class SideMenu extends Component {
@@ -13,31 +12,11 @@ static propTypes = {
 };
 
   state = {
-    filter: '',
-    filteredResults: []
+    searchWord: ''
   };
   
 
- filterTodo(e)
- { 
- var updatedList = this.state.todosInit;
- updatedList = updatedList.filter((item =>{
- return item.toLowerCase().search(
- e.target.value.toLowerCase()) !== -1;
- }) );
- this.setState({ 
- todos: updatedList,
- });
- if (updatedList == 0 ) {
- this.setState({ 
- message: true,
- });
- } else {
- this.setState({ 
- message: false,
- });
- }
- }
+  
 
 
 	render() {
@@ -52,15 +31,14 @@ static propTypes = {
 					 placeholder="filter results"
 					 autoFocus
 					 aria-label="Locations filter"
-					 value={ this.state.filter }
+					 value={ this.state.searchWord }
 					 onChange={(event) => {
-					 this.setState({ filter: event.target.value });
-				 }}
-				   />   
+					 this.setState({ searchWord: event.target.value });
+					 this.props.userKeyword(event.target.value)}}
+				   />  
 			 </form>
 			
-			 <p>{this.state.filter}</p>
-			 <p>{this.state.filteredResults}</p>
+			
 			 
 		{places &&
 		places.map((place, i) => (
@@ -79,5 +57,3 @@ static propTypes = {
 
 
 export default SideMenu
-
-
