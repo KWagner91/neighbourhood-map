@@ -25,6 +25,11 @@ _yarn_
 > yarn start
 
 
+## Project Specifications
+- HTML5, CSS, JavaScript and React
+- Google Maps API and Foursquare API where used
+
+
 ## Additional Functionality
 
 - The User can change the keyword which will display new map pins

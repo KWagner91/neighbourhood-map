@@ -17,8 +17,6 @@ static propTypes = {
   
 
 	render() {
-		const places = this.props.items;
-		
 		return (
 		 <div id="query-search">
 				   <input

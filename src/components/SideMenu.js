@@ -8,7 +8,7 @@ import '.././App.css';
 class SideMenu extends Component {
 	// Prop types
 static propTypes = {
-      
+      items: PropTypes.array.isRequired
 };
 
   state = {
@@ -28,7 +28,7 @@ static propTypes = {
 			 <form>
 				   <input
 					 type="text"
-					 placeholder="filter results"
+					 placeholder="filter map results"
 					 autoFocus
 					 aria-label="Locations filter"
 					 value={ this.state.searchWord }
@@ -37,9 +37,7 @@ static propTypes = {
 					 this.props.userKeyword(event.target.value)}}
 				   />  
 			 </form>
-			
-			
-			 
+					 
 		{places &&
 		places.map((place, i) => (
         <ul className="places-overview" key={i}>
