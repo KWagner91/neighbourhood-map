@@ -7,32 +7,32 @@ import '.././App.css';
 
 class Search extends Component {
 	// Prop types
-static propTypes = {
-      query: PropTypes.string.isRequired
-};
+	static propTypes = {
+		query: PropTypes.string.isRequired
+	};
 
-  state = {
-    query: ''
-  };
+	state = {
+		query: ''
+	};
   
 
 	render() {
 		return (
-		 <div id="query-search">
-				   <input
-					 type="text"
-					 placeholder="e.g. coffee, food, museum"
-					 autoFocus
-					 aria-label="Locations filter"
-					 value={ this.state.query }
-					 onChange={(event) => {
-					 this.setState({ query: event.target.value });
-					 this.props.handleInputChange(event.target.value)}}
+		<div id="query-search">
+			<input
+				type="text"
+				placeholder="e.g. coffee, food, museum"
+				autoFocus
+				aria-label="Locations filter"
+				value={ this.state.query }
+				onChange={(event) => {
+					this.setState({ query: event.target.value });
+					this.props.handleInputChange(event.target.value)}}
 				   />   
 			 
 		</div>
 		)		 
-}
+	}
 }
 
 

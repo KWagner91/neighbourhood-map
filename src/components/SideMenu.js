@@ -16,8 +16,6 @@ static propTypes = {
   };
   
 
-  
-
 
 	render() {
 		const places = this.props.items;
@@ -38,19 +36,19 @@ static propTypes = {
 				   />  
 			 </form>
 					 
-		{places &&
-		places.map((place, i) => (
-        <ul className="places-overview" key={i}>
-			  <li id={place.venue.id}>
-				  <h3>{place.venue.name} </h3>
-				  <p>{place.venue.location.address} </p>
-				</li>
-				</ul>   
-				   ))}
-		</div>
-		)
+			{places &&
+			places.map((place, i) => (
+			<ul role="menu" className="places-overview" key={i}>
+				  <li role="menuitem" id={place.venue.id}>
+					  <h3>{place.venue.name} </h3>
+					  <p>{place.venue.location.address} </p>
+					</li>
+					</ul>   
+					   ))}
+			</div>
+			)
 				
-}
+	}
 }
 
 

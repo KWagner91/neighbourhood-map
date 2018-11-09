@@ -14,8 +14,8 @@ class App extends Component {
 	  items: [],
 	  clickedCafe: {},
 	  filteredItems: [],
-		query: "coffee",
-		searchWord: ""
+	  query: "coffee",
+	  searchWord: ""
 }
 
 
@@ -30,7 +30,6 @@ class App extends Component {
 	 userKeyword(searchWord) {
 		this.setState({searchWord})
 	}
-
 
 
    getData = () => {
@@ -54,59 +53,59 @@ class App extends Component {
   }
 	
 	
-  componentDidMount() {
-    this.getData()
-  }
+	  componentDidMount() {
+		this.getData()
+	  }
 
 
 
 
-  render() {
-
+	  render() {
 		// SOURCE: https://github.com/markyz89/FEND-P8/blob/master/src/App.js
 		let filteredRestaurants
-    if(this.state.searchWord) {
-      const match = new RegExp(escapeRegExp(this.state.searchWord), 'i')
-      filteredRestaurants = this.state.filteredItems.filter((restaurant) => match.test(restaurant.venue.name))
-		} 
+		if(this.state.searchWord) {
+		  const match = new RegExp(escapeRegExp(this.state.searchWord), 'i')
+		  filteredRestaurants = this.state.filteredItems.filter((restaurant) => match.test(restaurant.venue.name))
+			} 
 		else {
-      filteredRestaurants = this.state.filteredItems
-}
+		  filteredRestaurants = this.state.filteredItems
+		}
 
-    return (
-		  <div className="flexbox">
-			<header className="header">
-			  <h1>Neighbourhood Map of Munich</h1>
-			  <p>You happen to be in Munich, Germany? You would like to visit soon?</p>
-			  <p>Enter what you would like to do in the search field to get personal recommendations: </p>
-			  		<Search 
-					items={this.state.filteredItems}
-					query={this.state.query}
-					handleInputChange={(query) => {this.handleInputChange(query)}}
+		return (
+			  <div className="flexbox">
+				<header className="header">
+				  <h1>Neighbourhood Map of Munich</h1>
+				  <p>You happen to be in Munich, Germany? You would like to visit soon?</p>
+				  <p>Enter what you would like to do in the search field to get personal recommendations: </p>
+						<Search 
+						items={this.state.filteredItems}
+						query={this.state.query}
+						handleInputChange={(query) => {this.handleInputChange(query)}}
+						/>
+						
+				</header>
+				<main className="main">
+				  <div id="map" role="application">
+				  <GoogleMaps 
+					  items={filteredRestaurants}
+					  key={filteredRestaurants.id}
+					  clickedPlace={this.state.clickedPlace}
+					  handleInfoWindow={this.handleInfoWindow}
 					/>
-					
-			</header>
-			<main className="main">
-			  <div id="map" role="application">
-			  <GoogleMaps 
-				  items={filteredRestaurants}
-				  key={filteredRestaurants.id}
-				  clickedPlace={this.state.clickedPlace}
-				  handleInfoWindow={this.handleInfoWindow}
-				/>
-			  </div>
-			</main>
+				  </div>
+				</main>
+				
 				<aside className="menu">
 					<SideMenu 
 						items={filteredRestaurants}
 						searchWord={this.state.searchWord}
 						userKeyword={(searchWord) => {this.userKeyword(searchWord)}}
 					/>
-			</aside>
-		  </div>
-	
-    );
-  }
-}
+				</aside>
+			  </div>
+		
+		);
+	  }
+	}
 
 export default App;

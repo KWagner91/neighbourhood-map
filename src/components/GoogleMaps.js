@@ -25,61 +25,65 @@ import '.././index.css';
   }
 
 
-// Toggle Info Box
-handleToggle = () => {
-	this.setState({
-		isOpen: !this.state.isOpen
-	});
-}
+	// Toggle Info Box
+	handleToggle = () => {
+		this.setState({
+			isOpen: !this.state.isOpen
+		});
+	}
 
-// Show Info Window when place is clicked
-showInfo(a) {
-	this.setState({
-		showInfoIndex: a
-	});
-}
+	// Show Info Window when place is clicked
+	showInfo(a) {
+		this.setState({
+			showInfoIndex: a
+		});
+	}
 
-// Animate Marker which was clicked
-animateMarker(a) {
-	if (this.state.showInfoIndex === a)
-	return 1
-}
+	// Animate Marker which was clicked
+	animateMarker(a) {
+		if (this.state.showInfoIndex === a)
+			return 1
+	}
+	
+	
+	// Google Maps Data Request fails
+    gm_authFailure() {
+		alert("Error loading Google Maps, please refresh your page and delete the cache!");
+    };
 
     
     render() {
-		const places = this.props.items;
-		
+		const places = this.props.items;	
 		const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-      <GoogleMap
-      onPlacesChanged = {this.mapMoved.bind(this)}
-      defaultZoom = {this.state.startingZoom}
-      defaultCenter = {this.state.center}
-      >  
-      {places &&
-        places.map((place, i) => (
-          <Marker
-            key={i}
-            position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }}
-            id={place.venue.id}
-            name={place.venue.name}
-            onClick={() => {this.showInfo(i)} }
-			      animation = {this.animateMarker(i)}
-          >
-          
-          
-           { (this.state.showInfoIndex === i) &&
-				<InfoWindow
-						onClick={this.handleToggle}
-						 animation={1}
-						>
+		  <GoogleMap
+		  onPlacesChanged = {this.mapMoved.bind(this)}
+		  defaultZoom = {this.state.startingZoom}
+		  defaultCenter = {this.state.center}
+		  >  
+		  {places &&
+			places.map((place, i) => (
+			  <Marker
+				key={i}
+				position={{ lat: place.venue.location.lat, lng: place.venue.location.lng }}
+				id={place.venue.id}
+				name={place.venue.name}
+				onClick={() => {this.showInfo(i)} }
+					  animation = {this.animateMarker(i)}
+			  >
+			  	  
+			   { (this.state.showInfoIndex === i) &&
+					<InfoWindow
+							onClick={this.handleToggle}
+							 animation={1}
+					>
 						<div role="presentation" aria-hidden="false">
-					<h2>{place.venue.name}</h2>
-					<p>{place.venue.location.address}</p>
-					</div>
-				</InfoWindow>
-			 }
-          </Marker>
-        ))}
+						<h2>{place.venue.name}</h2>
+						<p>{place.venue.location.address}</p>
+						</div>
+					</InfoWindow>
+				 }
+			  </Marker>
+			))}
 
     </GoogleMap>
         ))
@@ -93,7 +97,6 @@ animateMarker(a) {
           mapElement={<div style={{ height: `100%` }} />}       
         />
 
-     
             );
         }}
   

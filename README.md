@@ -15,14 +15,18 @@ Install dependencies and run with:
 _npm_
 
 > npm install
-> npm start
+> npm run serve
+
+And then visit localhost:5000
 
 or
 
 _yarn_
 
 > yarn install
-> yarn start
+> yarn run serve
+
+And then visit localhost:5000
 
 
 ## Project Specifications
